@@ -1,6 +1,6 @@
 //models/index.js
 const Sequelize = require('sequelize');
-const {User, } = require('./models')
+const {User} = require('./models')
 const env = process.env.NODE_ENV || 'development';
 const config = require('../../config/config')[env];
 const db = {};
@@ -13,10 +13,10 @@ db.sequelize = sequelize;
 db.User = User;
 
 
-User.init(sequelize);
+// User.init(sequelize);
 
 
-User.associate(db)
+// User.associate(db)
 
 
 

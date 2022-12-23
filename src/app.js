@@ -1,8 +1,7 @@
 const express = require('express');
-const { studyRouter, userRouter } = require('./routers')
+const { userRouter } = require('./routers')
 const path = require('path');
 const morgan = require('morgan');
-
 
 const { sequelize } = require('./db');
 
@@ -22,7 +21,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.use('/api/users', userRouter);
-
+// app.use('/api/users', userRouter)
 
 module.exports = { app }
