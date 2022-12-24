@@ -11,12 +11,12 @@ module.exports = (sequelize, DataTypes) => {
         min: {
             type: DataTypes.INTEGER,
             allowNull: false,
-            primaryKey: false
+
         },
         max: {
             type: DataTypes.INTEGER,
             allowNull: false,
-            primaryKey: false
+
         },
       }, {
       sequelize,

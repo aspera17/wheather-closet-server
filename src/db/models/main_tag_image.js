@@ -11,12 +11,10 @@ module.exports = (sequelize, DataTypes) => {
       image_id: {
         type: DataTypes.INTEGER.UNSIGNED,
         allowNull: false,
-        primaryKey: false
       },
       tag_id: {
         type: DataTypes.INTEGER.UNSIGNED,
         allowNull: false,
-        primaryKey: false
       },
       }, {
       sequelize,

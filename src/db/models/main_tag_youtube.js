@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
         tag_id: {
             type: DataTypes.INTEGER,
             allowNull: false,
-            primaryKey: false
+
         },
         url: {
             type: DataTypes.STRING(1024),

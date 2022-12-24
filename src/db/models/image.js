@@ -11,17 +11,14 @@ module.exports = (sequelize, DataTypes) => {
         url: {
             type: DataTypes.STRING(300),
             allowNull: false,
-            primaryKey: false
         },
         file_key: {
             type: DataTypes.STRING(100),
             allowNull: false,
-            primaryKey: false
         },
         name: {
             type: DataTypes.STRING(50),
             allowNull: true,
-            primaryKey: false
         },
       }, {
       sequelize,

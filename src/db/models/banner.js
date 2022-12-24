@@ -17,7 +17,6 @@ module.exports = (sequelize, DataTypes) => {
         main_tag_image_id: {
             type: DataTypes.INTEGER.UNSIGNED,
             allowNull: false,
-            primaryKey: false,
         }
       }, {
       sequelize,
