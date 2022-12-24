@@ -3,6 +3,8 @@ const { userRouter } = require('./routers')
 const path = require('path');
 const morgan = require('morgan');
 
+const routers = require('./routers');
+
 const { sequelize } = require('./db');
 
 const app = express();
@@ -22,5 +24,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // app.use('/api/users', userRouter)
+app.use('/', routers);
+
+const port = 10000;
+
+app.listen(port, function () {
+    console.log('Example app listening on port : ' + port);
+});
+
 
 module.exports = { app }
