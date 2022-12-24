@@ -3,18 +3,19 @@ module.exports = (sequelize, DataTypes) => {
       "Banner",
       {
         id: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.INTEGER.UNSIGNED,
             allowNull: false,
             primaryKey: true,
             unique: true,
+            autoIncrement: true,
         },
         temperature_id: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.INTEGER.UNSIGNED,
             allowNull: false,
             primaryKey: true,
         },
         main_tag_image_id: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.INTEGER.UNSIGNED,
             allowNull: false,
             primaryKey: false,
         }

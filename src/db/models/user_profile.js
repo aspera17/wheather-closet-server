@@ -3,9 +3,10 @@ module.exports = (sequelize, DataTypes) => {
       "User_profile",
       {
         id: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.INTEGER.UNSIGNED,
             allowNull: false,
-            primaryKey: true
+            primaryKey: true,
+            autoIncrement: true,
         },
         email: {
             type: DataTypes.STRING(200),
@@ -18,12 +19,12 @@ module.exports = (sequelize, DataTypes) => {
             primaryKey: false
         },
         image_id: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.INTEGER.UNSIGNED,
             allowNull: false,
             primaryKey: false
         },
         user_id: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.INTEGER.UNSIGNED,
             allowNull: false,
             primaryKey: true
         },

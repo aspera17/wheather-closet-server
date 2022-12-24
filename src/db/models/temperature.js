@@ -3,9 +3,10 @@ module.exports = (sequelize, DataTypes) => {
       "Temperature",
       {
         id: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.INTEGER.UNSIGNED,
             allowNull: false,
-            primaryKey: true
+            primaryKey: true,
+            autoIncrement: true,
         },
         min: {
             type: DataTypes.INTEGER,

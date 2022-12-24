@@ -3,9 +3,10 @@ module.exports = (sequelize, DataTypes) => {
       "Image",
       {
         id: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.INTEGER.UNSIGNED,
             allowNull: false,
-            primaryKey: true
+            primaryKey: true,
+            autoIncrement: true,
         },
         url: {
             type: DataTypes.STRING(300),

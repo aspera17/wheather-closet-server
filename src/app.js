@@ -1,9 +1,7 @@
 const express = require('express');
-const { userRouter } = require('./routers')
+const { userRouter, boardRouter, homeRouter } = require('./routers')
 const path = require('path');
 const morgan = require('morgan');
-
-const routers = require('./routers');
 
 const { sequelize } = require('./db');
 
@@ -23,14 +21,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// app.use('/api/users', userRouter)
-app.use('/', routers);
-
-const port = 10000;
-
-app.listen(port, function () {
-    console.log('Example app listening on port : ' + port);
-});
-
+// app.use('/api/user', userRouter)
+// app.use('/', routers);
+app.use('/api/user', userRouter)
+app.use('/api/board', boardRouter)
+app.use('/api/home', homeRouter)
 
 module.exports = { app }

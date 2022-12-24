@@ -3,9 +3,10 @@ module.exports = (sequelize, DataTypes) => {
       "Main_tag_youtube",
       {
         id: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.INTEGER.UNSIGNED,
             allowNull: false,
-            primaryKey: true
+            primaryKey: true,
+            autoIncrement: true,
         },
         tag_id: {
             type: DataTypes.INTEGER,
