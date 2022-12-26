@@ -1,18 +1,29 @@
 const express = require('express');
 const boardRouter = express.Router();
 
-// 폴더에서 import하면, 자동으로 폴더의 index.js에서 가져옴 => 서비스로직, 미들웨어 작성 시 참고하기!
-// const { loginRequired } = require("../middlewares");
-// const { userService } = require("../service");
+const { loginRequired } = require("../middlewares/login-required");
+const { boardService } = require("../service");
 
 
-/* POST users content. */
-boardRouter.post('/board/content_register', function(req, res, next) {
-    res.send('게시글 등록 라우터 설정중');
-});
-
-/* DELETE users content. */
-boardRouter.delete('delete/:board_id', async (req, res, next) => {
+// 1. 게시판 등록
+boardRouter.post("/", loginRequired, async (req, res, next) => {
+    try {
+      const userId = req.userId;
+      const studyData = req.body.study;
+      const tag = req.body.tag;
+      const newStudy = await studyService.addStudy(userId,studyData);
+      const studyId = newStudy.dataValues.id;
+      await studyTagService.addStudyTag(tag, studyId);
+  
+      res.status(201).json({'studyId':studyId});
+    } catch (error) {
+      next(error);
+    }
+  });
+  
+  
+// 2. 게시판 삭제
+boardRouter.delete('/:boardId', async (req, res, next) => {
     try {
         // const userId = req.currentUserId;
         const userId = 1;

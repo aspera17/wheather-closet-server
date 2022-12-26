@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-    return sequelize.define('Board_tag', {
+    const Board_tag = sequelize.define('board_tag', {
       id: {
         type: DataTypes.INTEGER.UNSIGNED,
         allowNull: false,
@@ -22,5 +22,6 @@ module.exports = (sequelize, DataTypes) => {
         paranoid: true, //soft delete
         charset: 'utf8',
         collate: 'utf8_general_ci',
-      })
-};
+      });
+        return Board_tag;
+    };

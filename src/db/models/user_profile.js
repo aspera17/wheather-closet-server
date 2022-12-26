@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-    return sequelize.define("User_profile", {
+    const User_profile = sequelize.define("User_profile", {
       id: {
         type: DataTypes.INTEGER.UNSIGNED,
         allowNull: false,
@@ -27,5 +27,6 @@ module.exports = (sequelize, DataTypes) => {
         paranoid: true, //soft delete
         charset: 'utf8',
         collate: 'utf8_general_ci',
-      })
-};
+      });
+        return User_profile;
+    };

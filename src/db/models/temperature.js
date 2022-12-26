@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-    return sequelize.define('Temperature', {
+    const Temperature = sequelize.define('temperature', {
       id: {
         type: DataTypes.INTEGER.UNSIGNED,
         allowNull: false,
@@ -22,8 +22,12 @@ module.exports = (sequelize, DataTypes) => {
         paranoid: false,
         charset: 'utf8',
         collate: 'utf8_general_ci',
-     })
-};
+     });
+     
+        Temperature.associate = (models) => {
 
-Temperature.hasMany(Banner, {foreignKey: 'temperature_id', sourceKey: 'id'});
-Banner.belongsTo(Temperature, {onDelete:'set null'});
+        Temperature.hasMany(models.Banner, {foreignKey: 'temperature_id', sourceKey: 'id'});
+        Banner.belongsTo(models.Temperature, {onDelete:'set null'});
+      };
+        return Temperature;
+    };
