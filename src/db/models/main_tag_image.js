@@ -1,31 +1,26 @@
 module.exports = (sequelize, DataTypes) => {
-    return sequelize.define('Board_like', {
-      board_like_id: {
+    return sequelize.define('Main_tag_image', {
+      main_tag_image_id: {
         type: DataTypes.INTEGER.UNSIGNED,
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
       },
-      board_id: {
+      image_id: {
         type: DataTypes.INTEGER.UNSIGNED,
         allowNull: false,
       },
-      user_id: {
+      tag_id: {
         type: DataTypes.INTEGER.UNSIGNED,
         allowNull: false,
       },
-      unliked_at: {
-        type: DataTypes.DATE,
-        allowNull: true,
-        defaultValue: DataTypes.NOW
-      }
       }, {
         sequelize,
-        timestamps: true, 
+        timestamps: false, 
         underscored: true, 
         freezeTableName: true,
-        paranoid: true, //soft delete
+        paranoid: false, //soft delete
         charset: 'utf8',
         collate: 'utf8_general_ci',
-      })
+     })
 };
