@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
     return sequelize.define('Main_tag_image', {
-      main_tag_image_id: {
+      id: {
         type: DataTypes.INTEGER.UNSIGNED,
         allowNull: false,
         autoIncrement: true,
@@ -24,3 +24,6 @@ module.exports = (sequelize, DataTypes) => {
         collate: 'utf8_general_ci',
      })
 };
+
+Main_tag_image.hasMany(Banner, {foreignKey: 'main_tag_image_id', sourceKey: 'id'});
+Banner.belongsTo(Main_tag_image, {onDelete:'set null'});

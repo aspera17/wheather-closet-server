@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
     return sequelize.define('Temperature', {
-      temperature_id: {
+      id: {
         type: DataTypes.INTEGER.UNSIGNED,
         allowNull: false,
         autoIncrement: true,
@@ -24,3 +24,6 @@ module.exports = (sequelize, DataTypes) => {
         collate: 'utf8_general_ci',
      })
 };
+
+Temperature.hasMany(Banner, {foreignKey: 'temperature_id', sourceKey: 'id'});
+Banner.belongsTo(Temperature, {onDelete:'set null'});
