@@ -1,13 +1,17 @@
 module.exports = (sequelize, DataTypes) => {
-    return sequelize.define('User', {
-  user_id: {
+    return sequelize.define('User_password', {
+  user_password_id: {
     type: DataTypes.INTEGER.UNSIGNED,
     allowNull: false,
     autoIncrement: true,
     primaryKey: true,
   },
-  nickname: {
-    type: DataTypes.STRING, // STRING = VARCHAR(255)
+  password: {
+    type: DataTypes.STRING(200),
+    allowNull: false,
+  },
+  user_id: {
+    type: DataTypes.INTEGER.UNSIGNED,
     allowNull: false,
   }
 }, {
@@ -15,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: true, 
     underscored: true, 
     freezeTableName: true,
-    paranoid: true, //soft delete
+    paranoid: false,
     charset: 'utf8',
     collate: 'utf8_general_ci',
 })
