@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
   return sequelize.define('Board', {
-    board_id: {
+    id: {
       type: DataTypes.INTEGER.UNSIGNED,
       allowNull: false,
       autoIncrement: true,
@@ -28,3 +28,10 @@ module.exports = (sequelize, DataTypes) => {
       collate: 'utf8_general_ci',
     })
 };
+
+Board.hasMany(Board_like, {foreignKey: 'board_id', sourceKey: 'id'});
+Board_like.belongsTo(Board, {onDelete:'set null'});
+Board.hasMany(Board_tag, {foreignKey: 'board_id', sourceKey: 'id'});
+Board_tag.belongsTo(Baord, {onDelete:'cascade'});
+Board.hasOne(Board_image, {foreignKey: 'board_id', sourceKey: 'id'});
+Board_image.belongsTo(Board, {onDelete:'cascade'});
