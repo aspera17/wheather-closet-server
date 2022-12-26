@@ -1,13 +1,21 @@
 module.exports = (sequelize, DataTypes) => {
-    return sequelize.define('User', {
-  user_id: {
+  return sequelize.define('Board', {
+  board_id: {
     type: DataTypes.INTEGER.UNSIGNED,
     allowNull: false,
     autoIncrement: true,
     primaryKey: true,
   },
-  nickname: {
-    type: DataTypes.STRING, // STRING = VARCHAR(255)
+  clothes_style: {
+    type: DataTypes.ENUM('정장', '캐쥬얼', '스트릿'),
+    allowNull: false,
+  },
+  board_address_id: {
+    type: DataTypes.INTEGER.UNSIGNED,
+    allowNull: false,
+  },
+  user_id: {
+    type: DataTypes.INTEGER.UNSIGNED,
     allowNull: false,
   }
 }, {
