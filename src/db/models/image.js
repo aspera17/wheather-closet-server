@@ -1,19 +1,23 @@
 module.exports = (sequelize, DataTypes) => {
-    return sequelize.define('User_password', {
-      user_password_id: {
+    return sequelize.define('Image', {
+      image_id: {
         type: DataTypes.INTEGER.UNSIGNED,
         allowNull: false,
         autoIncrement: true,
-        primaryKey: true,
+        primaryKey: true,  
       },
-      password: {
-        type: DataTypes.STRING(200),
-        allowNull: false,
+      url: {
+        type: DataTypes.STRING(1024),
+        allowNull: true,
       },
-      user_id: {
-        type: DataTypes.INTEGER.UNSIGNED,
-        allowNull: false,
-      }
+      file_key: {
+        type: DataTypes.STRING(300),
+        allowNull: true,
+      },
+      name: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
       }, {
         sequelize,
         timestamps: true, 
@@ -22,5 +26,5 @@ module.exports = (sequelize, DataTypes) => {
         paranoid: false,
         charset: 'utf8',
         collate: 'utf8_general_ci',
-      })
+     })
 };
