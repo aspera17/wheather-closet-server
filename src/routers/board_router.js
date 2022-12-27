@@ -16,10 +16,17 @@ boardRouter.post('/', loginRequired, async (req, res, next) => {
   } catch(error) {
     next(error)
   }})
+
 // 2. 기본 게시물 조회 (시간 순서)
-get
+boardRouter.get('/', /*loginRequired*/ async (req, res, next) => {
+    try { const board = await boardService.getBoardByTime()
+        res.json(board);
+    } catch(error) {
+      next(error)
+    }})
+
 // 3. 게시물 조회 (좋아요 순서)
-get
+// get
 // 4. 게시물 조회 (거리가 가까운 순서)
 // 5. 게시물에 좋아요 누르기
 // 6. 게시물에 좋아요 취소하기

@@ -13,7 +13,7 @@ class BoardService {
 
 // 2. 기본 게시물 조회 (시간 순서)
     async getBoardByTime(){
-
+        return [{"title": "asdads"}];
     }
 // 3. 게시물 조회 (좋아요 순서)
     async getBoardByLike() {
@@ -27,4 +27,6 @@ class BoardService {
 
 // 6. 게시물에 좋아요 취소하기
 // 7. 게시물 삭제하기
-}
+};
+
+module.exports = new BoardService();
