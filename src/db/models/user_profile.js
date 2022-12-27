@@ -1,5 +1,7 @@
-module.exports = (sequelize, DataTypes) => {
-    const User_profile = sequelize.define("User_profile", {
+const {DataTypes} = require('sequelize');
+
+module.exports = (sequelize) => {
+    sequelize.define('user_profile', {
       id: {
         type: DataTypes.INTEGER.UNSIGNED,
         allowNull: false,
@@ -21,12 +23,14 @@ module.exports = (sequelize, DataTypes) => {
       },
       }, {
         sequelize,
-        timestamps: true, 
-        underscored: true,
+        timestamps: true,
+        updatedAt: true,
+        deletedAt: false,
+        createdAt: true,
+        underscored: true, 
         freezeTableName: true,
         paranoid: true, //soft delete
         charset: 'utf8',
         collate: 'utf8_general_ci',
       });
-        return User_profile;
-    };
+};

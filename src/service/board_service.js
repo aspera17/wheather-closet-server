@@ -1,4 +1,4 @@
-const { Board } = require("../db");
+const { Board, Board_like } = require("../db/models/index.js");
 
 
 
@@ -28,8 +28,14 @@ class BoardService {
     async getBoardByLike() {
         // board_like 테이블의 board_id 칼럼 중
         // 각 id의 count를 세서 높은 순서대로 가져온다
-        // board_id가 동일할 떄 count 숫자 - unklike의 숫자  
-    }
+        // board_id가 동일할 떄 count 숫자 - unklike의 숫자
+        const boardLike = Board_like.findAll({
+            attributes: [[sequelize.fn('COUNT', sequelize.col('board_id')), 'likCount']]
+          });
+        
+        return boardLike;
+    };
+
 // 4. 게시물 조회 (거리가 가까운 순서)
     async getBoardByDistance() {
         // param? 에 담긴 gps 값을 이용해서

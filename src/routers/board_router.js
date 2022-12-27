@@ -15,7 +15,7 @@ boardRouter.post('/:userId', /*loginRequired,*/ async (req, res, next) => {
     }})
 
 // 2. 게시물 조회 (시간 순서 - 기본)
-boardRouter.get('/', /*loginRequired*/ async (req, res, next) => {
+boardRouter.get('/', async (req, res, next) => {
     try { 
         const board = await boardService.getBoardByTime()
         res.json(board);
@@ -24,7 +24,7 @@ boardRouter.get('/', /*loginRequired*/ async (req, res, next) => {
     }})
 
 // 3. 게시물 조회 (좋아요 순서)
-boardRouter.get('/?like=1', /*loginRequired*/ async (req, res, next) => {
+boardRouter.get('/?like=1', async (req, res, next) => {
     try { 
         const board = await boardService.getBoardByLike()
         res.json(board);

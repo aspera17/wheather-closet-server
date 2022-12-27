@@ -1,5 +1,7 @@
-module.exports = (sequelize, DataTypes) => {
-    const User_token = sequelize.define('User_token', {
+const {DataTypes} = require('sequelize');
+
+module.exports = (sequelize) => {
+    sequelize.define('user_token', {
       id: {
         type: DataTypes.INTEGER.UNSIGNED,
         allowNull: false,
@@ -16,12 +18,14 @@ module.exports = (sequelize, DataTypes) => {
       }
       }, {
         sequelize,
-        timestamps: true, 
+        timestamps: true,
+        updatedAt: false,
+        deletedAt: false,
+        createdAt: true,
         underscored: true, 
         freezeTableName: true,
-        paranoid: false, //soft delete
+        paranoid: true, //soft delete
         charset: 'utf8',
         collate: 'utf8_general_ci',
       });
-        return Banner;
-    };
+};

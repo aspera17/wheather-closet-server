@@ -1,5 +1,7 @@
-module.exports = (sequelize, DataTypes) => {
-    const Main_tag_youtube = sequelize.define('main_tag_youtube', {
+const {DataTypes} = require('sequelize');
+
+module.exports = (sequelize) => {
+    sequelize.define('main_tag_youtube', {
       id: {
         type: DataTypes.INTEGER.UNSIGNED,
         allowNull: false,
@@ -16,13 +18,11 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
       },
       }, {
-        sequelize,
-        timestamps: false, 
+        sequelize, 
         underscored: true, 
         freezeTableName: true,
         paranoid: false,
         charset: 'utf8',
         collate: 'utf8_general_ci',
      });
-        return Main_tag_youtube;
-    };
+};
