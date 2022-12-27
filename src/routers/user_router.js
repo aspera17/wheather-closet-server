@@ -1,6 +1,5 @@
 const express = require("express");
 const {loginRequired} = require("../middlewares/login-required");
-// 폴더에서 import하면, 자동으로 폴더의 index.js에서 가져옴 => 서비스로직, 미들웨어 작성 시 참고하기!
 const userRouter = express.Router();
 const {userService} = require("../service");
 
@@ -172,23 +171,6 @@ userRouter.get("/posts", loginRequired, async (req, res) => {
 //       }
 //     }
 // );
-
-
-/*
-const statusCode = {
-  OK: 200,
-  CREATED: 201,
-  NO_CONTENT: 204,
-  RESET_CONTENT: 205,
-  NOT_MODIFIED: 304,
-  BAD_REQUEST: 400,
-  UNAUTHORIZED: 401,
-  FORBIDDEN: 403,
-  NOT_FOUND: 404,
-  INTERNAL_SERVER_ERROR: 500,
-  SERVICE_UNAVAILABLE: 503,
-  DB_ERROR: 600,
-}; */
 
 
 module.exports = userRouter;

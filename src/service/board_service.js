@@ -1,4 +1,3 @@
-const { Board, Board_like } = require("../db/models/index.js");
 
 
 

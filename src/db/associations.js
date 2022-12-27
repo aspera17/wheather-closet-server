@@ -1,8 +1,9 @@
 function applyAssociations(sequelize) {
 
-    const {board} = sequelize.models;
+    const {board, board_address} = sequelize.models;
 
-    // board.has
+    board.hasOne(board_address);
+    board_address.belongsTo(board);
 
 }
 

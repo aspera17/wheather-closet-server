@@ -1,4 +1,3 @@
-const {User, User_profile, User_password, User_token, Board, Board_like} = require("../db/models");
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken");
 
@@ -186,4 +185,3 @@ class UserService {
 }
 
 
-module.exports = new UserService(User);

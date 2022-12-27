@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 const morgan = require('morgan');
-const {boardRouter, userRouter} = require('./routers')
+const {boardRouter, userRouter, tagRouter, bannerRouter} = require('./routers')
 const app = express();
 
 
@@ -12,5 +12,7 @@ app.use(express.urlencoded({extended: false}));
 
 app.use('/api/user', userRouter)
 app.use('/api/board', boardRouter)
+app.use('/api/tag', tagRouter)
+app.use('/api/banner', bannerRouter)
 
 module.exports = {app}
