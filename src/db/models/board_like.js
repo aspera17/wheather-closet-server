@@ -1,7 +1,5 @@
-const {DataTypes} = require('sequelize');
-
-module.exports = (sequelize) => {
-    sequelize.define('board_like', {
+module.exports = (sequelize, DataTypes) => {
+    const Board_like = sequelize.define('board_like', {
       id: {
         type: DataTypes.INTEGER.UNSIGNED,
         allowNull: false,
@@ -21,15 +19,14 @@ module.exports = (sequelize) => {
         allowNull: true,
         defaultValue: DataTypes.NOW
       }
-    }, {
+      }, {
         sequelize,
-        timestamps: true,
-        updatedAt: false,
-        deletedAt: false,
-        createdAt: true,
+        timestamps: true, 
         underscored: true, 
         freezeTableName: true,
+        paranoid: true, //soft delete
         charset: 'utf8',
         collate: 'utf8_general_ci',
-    });
-};
+      });
+        return Board_like;
+    };

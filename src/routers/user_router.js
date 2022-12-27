@@ -63,11 +63,11 @@ userRouter.post("/login", async (req, res, next) => {
 // });
 
 
-
-// 4. 내 정보 수정
-/* PATCH users modify. */
 userRouter.patch("/profile", loginRequired, async (req, res, next) => res.status(200));
 
+
+// 5. 내 정보 수정
+/* PATCH users modify. */
 //수정해야됨!!!!!!
 // 회원 정보 수정
 // (예를 들어 /api/users/abc12345 로 요청하면 req.params.userId는 'abc12345' 문자열로 됨)
@@ -89,16 +89,39 @@ userRouter.patch("/profile", loginRequired, async (req, res, next) => res.status
 // });
 
 
-//1번 유저 jwt: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOjEsImVtYWlsIjoidGVzdEB0ZXN0LmNvbSJ9.7be_0ewi7-LdtsNA2au5MUTzH2PZ6c0k4BchwB0_HYo
-
-
-// 5. 내 정보 조회(GET)
-// 아이디가 이메일이니까... email로 조회해야 하나? => No,jwt가 만드는? userId!?
-// @route    GET api/profile/:userId
-userRouter.get("/profile",  loginRequired, async function (req, res, next) {
+// 6. 내가 '좋아요'누른 게시물 보기
+// @route    GET api/likes/:userId
+userRouter.get("likes/:userId",  /*loginRequired*/ async (req, res) => {
     try {
-        const userId = req.userId;
-        const currentUserInfo = await userService.getUserData(userId)
+        const getLikesPostssData = await userService.getLikesPostssData();
+        res.json(getLikesPostssData);
+        //   res.status(200).json(getLikesPostssData);
+
+    } catch (err) {
+        res.status(500).send("Server Error");
+    }
+});
+// userRouter.get("/posts/user/likes/:userId",  /*loginRequired*/ async function (req, res, next) {
+//     try {
+//       const email = req.email;
+//       // const currentUserInfo = await userService.getUserData(email);
+//       const currentUserInfo = await userService.getUserData(email)
+//       res.json(currentUserInfo);
+//       // res.status(200).json(currentUserInfo);
+//     } catch (error) {
+//       next(error);
+//     }
+//   });
+
+
+// 4. 내 정보 조회(GET)
+// 아이디가 이메일이니까... email로 조회해야 하나?
+// /api/user/profile
+userRouter.get("/profile",  /*loginRequired*/ async function (req, res, next) {
+    try {
+        const email = req.email;
+        // const currentUserInfo = await userService.getUserData(email);
+        const currentUserInfo = await userService.getUserData(email)
         res.json(currentUserInfo);
         // res.status(200).json(currentUserInfo);
     } catch (error) {
@@ -106,37 +129,30 @@ userRouter.get("/profile",  loginRequired, async function (req, res, next) {
     }
 });
 
-// 6. 내가 등록한 게시물 보기
+// 7. 내가 등록한 게시물 보기
 // @route    GET api/user/posts/:userId
 userRouter.get("/posts", loginRequired, async (req, res) => {
     try {
         const userId = req.userId;
-        const userPostsData = await userService.getPostsData(userId);
-        res.json(userPostsData);
-        // res.status(200).json(getPostsData);
+        const getPostsData = await userService.getPostsData(userId);
+        res.json(getPostsData);
+        //   res.status(200).json(getPostsData);
     } catch (err) {
-        next(error);
-        // res.status(500).send("Server Error");
+        res.status(500).send("Server Error");
     }
 });
 
-
-// 7. 내가 '좋아요'누른 게시물 보기
-// @route    GET api/likes/:userId
-// => @route    GET api/posts/likes/:userId 이 구조가 맞지 않나..?
-userRouter.get("/posts/likes",  loginRequired, async (req, res) => {
-    try {
-        const userLikesPostssData = await userService.getLikesPostssData();
-        res.json(userLikesPostssData);
-        // res.status(200).json(getLikesPostssData);
-
-    } catch (err) {
-        next(error);
-        // res.status(500).send("Server Error");
-    }
-});
-
-
+// userRouter.get("/posts/:userId",  /*loginRequired*/ async function (req, res, next) {
+//     try {
+//     //   const email = req.email;
+//       // const getPostsData = await userService.getPostsData();
+//       const getPostsData = await userService.getPostsData()
+//       res.json(getPostsData);
+//       // res.status(200).json(getPostsData);
+//     } catch (error) {
+//       next(error);
+//     }
+//   });
 
 // 8. 회원 탈퇴 
 /* DELETE users DELELE. */
