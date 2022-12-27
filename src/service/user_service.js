@@ -11,7 +11,7 @@ class UserService {
 
   // 회원가입
   async addUser(userInfo) {
-    const { user_id, pw, nickname, email, introduce } = userInfo;
+    const { email, password, nickname } = userInfo;
     const emailResult = await this.User.findOne({
       where: { email },
     });
@@ -27,19 +27,12 @@ class UserService {
       throw new Error('중복된 닉네임입니다.');
     }
 
-    const useridResult = await this.User.findOne({
-      where: { user_id },
-    });
-    if (useridResult) {
-      throw new Error('중복된 아이디입니다.');
-    }
-
 
 
     // 우선 비밀번호 해쉬화(암호화)
-    const hashedPassword = await bcrypt.hash(pw, 10);
+    const hashedPassword = await bcrypt.hash(password, 10);
 
-    const newUserInfo = { user_id, pw: hashedPassword, nickname, email, introduce };
+    const newUserInfo = { password: hashedPassword, nickname, email };
 
     // db에 저장
     const createdNewUser = await this.User.create(newUserInfo);
@@ -60,24 +53,24 @@ class UserService {
   // // 로그인
   async getUserToken(loginInfo) {
   //   // 객체 destructuring
-    const { user_id, pw } = loginInfo;
+    const { email, password } = loginInfo;
 
   //   //아이디가  db에 존재하는지 확인
   //   //const findByUserId = await User.findOne({ _id: userId });
     const users = await this.User.findOne({
-      where: { user_id },
+      where: { email },
     }); 
     if (!users) {
       throw new Error(
-        "가입되지 않은 아이디 입니다."
+        "가입되지 않은 이메일 입니다."
       );
     }
 
   //비밀번호 일치 여부 확인
-    const correctPasswordHash = users.pw; // db에 저장되어 있는 암호화된 비밀번호
+    const correctPasswordHash = users.password; // db에 저장되어 있는 암호화된 비밀번호
   //매개변수의 순서 중요 (1번째는 프론트가 보내온 비밀번호, 2번쨰는 db에 있던 암호화된 비밀번호)
     const isPasswordCorrect = await bcrypt.compare(
-      pw,
+      password,
       correctPasswordHash
     );
 
@@ -89,9 +82,9 @@ class UserService {
 
   //   // 로그인 성공 -> JWT 웹 토큰 생성
     const secretKey = process.env.JWT_SECRET_KEY || "secret-key";
-    console.log(users.dataValues.user_id, secretKey)
-  //   // 2개 프로퍼티를 jwt 토큰에 담음
-    const token = jwt.sign({ userId: users.dataValues.id }, secretKey);
+    console.log(users.dataValues.email, secretKey)
+  // //   // 2개 프로퍼티를 jwt 토큰에 담음
+  //   const token = jwt.sign({ userId: users.dataValues.id }, secretKey);
 
   //   //const isAdmin = user.role === "admin";
 
