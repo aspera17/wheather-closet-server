@@ -25,6 +25,10 @@ boardRouter.get('/', async (req, res, next) => {
     }
 })
 
+boardRouter.get('/me', async (req, res, next) => {
+    res.json({"boards": []});
+});
+
 // 3. 게시물에 좋아요 누르기
 boardRouter.post('/like/:userId', loginRequired, async (req, res, next) => {
     try {
