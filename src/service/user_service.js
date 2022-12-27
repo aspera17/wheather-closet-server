@@ -1,4 +1,5 @@
-const {User, User_profile, User_password, User_token, Board, Board_like} = require("../db/models");
+const {models} = require('../db/index');
+const { User, User_profile, User_password, User_token, Board, Board_like } = require("../db");
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken");
 
@@ -83,55 +84,24 @@ class UserService {
     // }
 
 
-    /* 4. 내 정보 조회(GET) = 특정 사용자 정보 조회 */
-    async getUserData(email) {
-        const getUserinfo = await this.User_profile.findAll({
-            attributes: ['email', 'image_id', 'user_id'],
-            /* where: {
-              married: true, // married = 1
-              age: { [Op.gt]: 30 }, // age > 30;
-          }, */
-        })
+    /* 5. 내 정보 조회(GET) = 특정 사용자 정보 조회 */
+    // User에서 nickname, User_profile에서 email, image_id, User_password에서 password를 가져와야 함.(다 id, user_id 빼면 배열 가져와도 됨.)
+    async getUserData(userId) {
+        const getUserProfile = await User_profile.findAll({user_id});
+        const getUserNickname = await User.findAll({user_id});
+        const getUserPassword = await User_password.findAll({user_id});
+        const getUserinfo = getUserProfile + getUserNickname + getUserPassword;
+
         // db에서 찾지 못한 경우, 에러 메시지 반환
         if (!getUserinfo) {
             throw new Error("가입 내역이 없습니다. 다시 한 번 확인해 주세요.");
         }
-
         return getUserinfo;
     }
 
-    // async getUserData(email) {
-    //   const getUserinfo = await this.User_profile.findOne({
-    //     where: { email },
-    //     //  include: {
-    //     //   model: this.Tag,
-    //     // },
-    //   });
-    //   // db에서 찾지 못한 경우, 에러 메시지 반환
-    //   if (!getUserinfo) {
-    //     throw new Error("가입 내역이 없습니다. 다시 한 번 확인해 주세요.");
-    //   }
-
-    //   return getUserinfo;
-    // }
-    // async getUserData(){
-    //   return [{"title": "왜 안 돼?"}];
-    // }
-
-    //6. 내가 좋아요한 게시글 보기
-    async getLikesPostsData() {
-        const likesposts = await this.Board_like.findOne({user_id});
-
-
-        // if (!getPostsData) {
-        //   throw new Error("게시글이 없습니다. 다시 한 번 확인해 주세요.");
-        // }
-        return likesposts;
-    }
-
-    //7. 내가 등록한 게시글 보기
-    async getPostsData() {
-        const posts = await this.Board.findOne({user_id});
+    //6. 내가 등록한 게시글 보기
+    async getPostsData(userId) {
+        const posts = await this.Board.findAll({user_id});
 
 
         // if (!getPostsData) {
@@ -139,6 +109,18 @@ class UserService {
         // }
         return posts;
     }
+
+    //7. 내가 좋아요한 게시글 보기
+    // 좋아요한 글의 상세 내용 : Board에서 clothes_style, board_address_id, user_id
+    async getLikesPostsData(userId) {
+      const likesposts = await this.Board_like.findAll({user_id});
+
+
+      // if (!getPostsData) {
+      //   throw new Error("게시글이 없습니다. 다시 한 번 확인해 주세요.");
+      // }
+      return likesposts;
+  }
 
 
     // //사용자 목록을 받음.
