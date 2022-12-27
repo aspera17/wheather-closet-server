@@ -1,4 +1,4 @@
-module.exports = (sequelize, DataTypes) => {
+const Main_tag_image = (sequelize, DataTypes) => {
     return sequelize.define('Main_tag_image', {
       id: {
         type: DataTypes.INTEGER.UNSIGNED,
@@ -27,3 +27,5 @@ module.exports = (sequelize, DataTypes) => {
 
 Main_tag_image.hasMany(Banner, {foreignKey: 'main_tag_image_id', sourceKey: 'id'});
 Banner.belongsTo(Main_tag_image, {onDelete:'set null'});
+
+module.exports = {Main_tag_image}

@@ -1,5 +1,5 @@
 const express = require('express');
-const router = express.Router();
+const homeRouter = express.Router();
 
 // 폴더에서 import하면, 자동으로 폴더의 index.js에서 가져옴 => 서비스로직, 미들웨어 작성 시 참고하기!
 // const { loginRequired } = require("../middlewares");
@@ -12,4 +12,4 @@ router.get('/', function(req, res, next) {
 );
   
 
-module.exports = router;
+module.exports = homeRouter;

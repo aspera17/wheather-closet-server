@@ -1,4 +1,5 @@
-module.exports = (sequelize, DataTypes) => {
+const Board = require('./board')
+const Board_address = (sequelize, DataTypes) => {
   return sequelize.define('Board_address', {
     id: {
       type: DataTypes.INTEGER.UNSIGNED,
@@ -33,3 +34,5 @@ module.exports = (sequelize, DataTypes) => {
 
 Board_address.hasOne(Board, {foreignKey: 'board_address_id', sourceKey: 'id'});
 Board.belongsTo(Board_address, {onDelete:'set null'});
+
+module.exports = { Board_address } 

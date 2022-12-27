@@ -1,4 +1,4 @@
-module.exports = (sequelize, DataTypes) => {
+const image = (sequelize, DataTypes) => {
     return sequelize.define('Image', {
       id: {
         type: DataTypes.INTEGER.UNSIGNED,
@@ -35,3 +35,5 @@ Image.hasMany(Board_image, {foreignKey: 'image_id', sourceKey: 'id'});
 Board_image.belongsTo(Image, {onDelete:'cascade'});
 Image.hasMany(Main_tag_image, {foreignKey: 'image_id', sourceKey: 'id'});
 Main_tag_image.belongsTo(Image, {onDelete:'cascade'});
+
+module.exports = {Image}

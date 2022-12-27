@@ -1,4 +1,4 @@
-module.exports = (sequelize, DataTypes) => {
+const Board_like = (sequelize, DataTypes) => {
     return sequelize.define('Board_like', {
       id: {
         type: DataTypes.INTEGER.UNSIGNED,
@@ -29,3 +29,4 @@ module.exports = (sequelize, DataTypes) => {
         collate: 'utf8_general_ci',
       })
 };
+module.exports = { Board_like }

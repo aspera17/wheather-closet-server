@@ -1,4 +1,4 @@
-module.exports = (sequelize, DataTypes) => {
+const Main_tag_youtube = (sequelize, DataTypes) => {
     return sequelize.define('Main_tag_youtube', {
       id: {
         type: DataTypes.INTEGER.UNSIGNED,
@@ -25,3 +25,5 @@ module.exports = (sequelize, DataTypes) => {
         collate: 'utf8_general_ci',
      })
 };
+
+module.exports = {Main_tag_youtube}

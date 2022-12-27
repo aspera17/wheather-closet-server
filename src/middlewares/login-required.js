@@ -1,9 +1,9 @@
-import jwt from 'jsonwebtoken';
-import dotenv from 'dotenv';
+const { jwt } = require('jsonwebtoken');
+require('dotenv').config();
 
-dotenv.config();
+// require('dotenv').config();
 
-const loginrequired = (req, res, next) => {
+const loginRequired = (req, res, next) => {
   const accessToken = req.headers['authorization']?.split(' ')[1];
   if (!accessToken || accessToken === 'null') {
     res.status(401).send({
@@ -26,4 +26,4 @@ const loginrequired = (req, res, next) => {
   }
 };
 
-export default loginrequired;
+module.exports = { loginRequired };

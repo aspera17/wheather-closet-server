@@ -1,4 +1,4 @@
-module.exports = (sequelize, DataTypes) => {
+const Banner = (sequelize, DataTypes) => {
     return sequelize.define('Banner', {
       id: {
         type: DataTypes.INTEGER.UNSIGNED,
@@ -24,3 +24,5 @@ module.exports = (sequelize, DataTypes) => {
         collate: 'utf8_general_ci',
       })
 };
+
+module.exports = {Banner}
