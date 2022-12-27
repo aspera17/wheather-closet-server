@@ -1,5 +1,5 @@
 const express = require('express');
-const { userRouter, boardRouter, homeRouter } = require('./routers')
+const { boardRouter } = require('./routers')
 const path = require('path');
 const morgan = require('morgan');
 
@@ -21,8 +21,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.use('/api/user', userRouter)
+// app.use('/api/user', userRouter)
 app.use('/api/board', boardRouter)
-app.use('/api/home', homeRouter)
+// app.use('/api/banner', bannerRouter)
 
 module.exports = { app }

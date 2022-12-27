@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-    return sequelize.define('User', {
+    const User = sequelize.define('user', {
       id: {
         type: DataTypes.INTEGER.UNSIGNED,
         allowNull: false,
@@ -18,16 +18,20 @@ module.exports = (sequelize, DataTypes) => {
         paranoid: true, //soft delete
         charset: 'utf8',
         collate: 'utf8_general_ci',
-      })
-};
+      });
 
-User.hasOne(User_password, {foreignKey: 'user_id', sourceKey: 'id'});
-User_password.belongsTo(User, {onDelete:'cascade'});
-User.hasOne(User_profile, {foreignKey: 'user_id', sourceKey: 'id'});
-User_profile.belongsTo(User, {onDelete:'cascade'});
-User.hasOne(User_token, {foreignKey: 'user_id', sourceKey: 'id'});
-User_token.belongsTo(User, {onDelete:'cascade'});
-User.hasMany(Board_like, {foreignKey: 'user_id', sourceKey: 'id'});
-Board_like.belongsTo(User, {onDelete:'set null'});
-User.hasMany(Board, {foreignKey: 'user_id', sourceKey: 'id'});
-Board.belongsTo(User, {onDelete:'set null'});
+        User.associate = (models) => {
+
+        User.hasOne(models.User_password, {foreignKey: 'user_id', sourceKey: 'id'});
+        User_password.belongsTo(models.User, {onDelete:'cascade'});
+        User.hasOne(models.User_profile, {foreignKey: 'user_id', sourceKey: 'id'});
+        User_profile.belongsTo(models.User, {onDelete:'cascade'});
+        User.hasOne(models.User_token, {foreignKey: 'user_id', sourceKey: 'id'});
+        User_token.belongsTo(models.User, {onDelete:'cascade'});
+        User.hasMany(models.Board_like, {foreignKey: 'user_id', sourceKey: 'id'});
+        Board_like.belongsTo(models.User, {onDelete:'set null'});
+        User.hasMany(models.Board, {foreignKey: 'user_id', sourceKey: 'id'});
+        Board.belongsTo(models.User, {onDelete:'set null'});
+      };
+        return User;
+    };

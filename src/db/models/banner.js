@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-    return sequelize.define('Banner', {
+    const Banner = sequelize.define('banner', {
       id: {
         type: DataTypes.INTEGER.UNSIGNED,
         allowNull: false,
@@ -22,5 +22,6 @@ module.exports = (sequelize, DataTypes) => {
         paranoid: false, //soft delete
         charset: 'utf8',
         collate: 'utf8_general_ci',
-      })
-};
+      });
+        return Banner;
+    };
