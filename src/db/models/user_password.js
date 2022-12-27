@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-    return sequelize.define('User_password', {
+    const User_password = sequelize.define('user_password', {
       id: {
         type: DataTypes.INTEGER.UNSIGNED,
         allowNull: false,
@@ -22,5 +22,6 @@ module.exports = (sequelize, DataTypes) => {
         paranoid: false,
         charset: 'utf8',
         collate: 'utf8_general_ci',
-      })
-};
+      });
+        return User_password;
+    };

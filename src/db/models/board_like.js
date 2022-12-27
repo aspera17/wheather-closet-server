@@ -1,5 +1,5 @@
-const Board_like = (sequelize, DataTypes) => {
-    return sequelize.define('Board_like', {
+module.exports = (sequelize, DataTypes) => {
+    const Board_like = sequelize.define('board_like', {
       id: {
         type: DataTypes.INTEGER.UNSIGNED,
         allowNull: false,
@@ -27,6 +27,6 @@ const Board_like = (sequelize, DataTypes) => {
         paranoid: true, //soft delete
         charset: 'utf8',
         collate: 'utf8_general_ci',
-      })
-};
-module.exports = { Board_like }
+      });
+        return Board_like;
+    };

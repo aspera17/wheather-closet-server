@@ -1,5 +1,5 @@
-const userRouter = require("./user");
-const boardRouter = require("./board");
-const homeRouter = require("./home");
+// const userRouter = require("./user");
+const boardRouter = require("./board_router");
+// const bannerRouter = require(".banner");
 
-module.exports = { userRouter, boardRouter, homeRouter };
+module.exports = { boardRouter };

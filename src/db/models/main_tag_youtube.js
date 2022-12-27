@@ -1,5 +1,5 @@
-const Main_tag_youtube = (sequelize, DataTypes) => {
-    return sequelize.define('Main_tag_youtube', {
+module.exports = (sequelize, DataTypes) => {
+    const Main_tag_youtube = sequelize.define('main_tag_youtube', {
       id: {
         type: DataTypes.INTEGER.UNSIGNED,
         allowNull: false,
@@ -23,7 +23,6 @@ const Main_tag_youtube = (sequelize, DataTypes) => {
         paranoid: false,
         charset: 'utf8',
         collate: 'utf8_general_ci',
-     })
-};
-
-module.exports = {Main_tag_youtube}
+     });
+        return Main_tag_youtube;
+    };

@@ -1,5 +1,5 @@
-const Board_image = (sequelize, DataTypes) => {
-    return sequelize.define('Board_image', {
+module.exports = (sequelize, DataTypes) => {
+    const Board_image = sequelize.define('board_image', {
       id: {
         type: DataTypes.INTEGER.UNSIGNED,
         allowNull: false,
@@ -22,7 +22,6 @@ const Board_image = (sequelize, DataTypes) => {
         paranoid: true, //soft delete
         charset: 'utf8',
         collate: 'utf8_general_ci',
-      })
-};
-
-module.exports = { Board_image }
+      });
+        return Board_image;
+    };

@@ -1,5 +1,5 @@
-const image = (sequelize, DataTypes) => {
-    return sequelize.define('Image', {
+module.exports = (sequelize, DataTypes) => {
+    const Image = sequelize.define('image', {
       id: {
         type: DataTypes.INTEGER.UNSIGNED,
         allowNull: false,
@@ -26,14 +26,16 @@ const image = (sequelize, DataTypes) => {
         paranoid: false,
         charset: 'utf8',
         collate: 'utf8_general_ci',
-     })
-};
+     });
 
-Image.hasMany(User_profile, {foreignKey: 'image_id', sourceKey: 'id'});
-User_profile.belongsTo(Image, {onDelete:'cascade'});
-Image.hasMany(Board_image, {foreignKey: 'image_id', sourceKey: 'id'});
-Board_image.belongsTo(Image, {onDelete:'cascade'});
-Image.hasMany(Main_tag_image, {foreignKey: 'image_id', sourceKey: 'id'});
-Main_tag_image.belongsTo(Image, {onDelete:'cascade'});
+        Image.associate = (models) => {
 
-module.exports = {Image}
+        Image.hasMany(models.User_profile, {foreignKey: 'image_id', sourceKey: 'id'});
+        User_profile.belongsTo(models.Image, {onDelete:'cascade'});
+        Image.hasMany(models.Board_image, {foreignKey: 'image_id', sourceKey: 'id'});
+        Board_image.belongsTo(models.Image, {onDelete:'cascade'});
+        Image.hasMany(models.Main_tag_image, {foreignKey: 'image_id', sourceKey: 'id'});
+        Main_tag_image.belongsTo(models.Image, {onDelete:'cascade'});
+      };
+        return Image;
+    };

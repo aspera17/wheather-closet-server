@@ -1,3 +1,6 @@
+// 1. 온도에 따른 태그 관련 정보 출력
+// 2. 온도에 따라 나온 메인 태그에 관한 유튜브 출력
+
 const express = require('express');
 const homeRouter = express.Router();
 

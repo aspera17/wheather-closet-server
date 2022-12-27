@@ -1,7 +1,10 @@
 const { jwt } = require('jsonwebtoken');
 require('dotenv').config();
+// const { dotenv } = require('dotenv');
+// import dotenv from 'dotenv';
 
 // require('dotenv').config();
+
 
 const loginRequired = (req, res, next) => {
   const accessToken = req.headers['authorization']?.split(' ')[1];
