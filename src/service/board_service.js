@@ -1,6 +1,5 @@
 const { Board } = require("../db");
-// const { Board } = require("../db/models");
-const Op = Sequelize.Op;
+
 
 
 class BoardService {
@@ -9,7 +8,7 @@ class BoardService {
 //       this.StudyTag = study_tag_model;
 //       this.Recruit = recruit_model;
 //       this.Like = like_model;
-//     } 
+//     }
 
 // 1. 게시물 등록
 //  async createBoard() {}

@@ -1,4 +1,5 @@
-const { jwt } = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
+
 require('dotenv').config();
 // const { dotenv } = require('dotenv');
 // import dotenv from 'dotenv';
@@ -20,9 +21,9 @@ const loginRequired = (req, res, next) => {
   try {
     //헤더에 있는 토큰 decode
     const key = process.env.SECRET_KEY;
-    const user = jwt.verify(accessToken, key);
-    req.currentUserIdx = user.user_idx;
-    req.currentUserEmail = user.email;
+    const payload = jwt.verify(accessToken, key);
+    req.userId = payload.sub;
+    req.userEmail = payload.email;
     next();
   } catch (err) {
     res.send({ errorMessage: err + ' : 로그인이 필요합니다.' });
