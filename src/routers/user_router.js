@@ -2,7 +2,8 @@ const express = require("express");
 const userRouter = express.Router();
 
 const {loginRequired} = require("../middlewares");
-const {userService} = require("../service/user_service");
+
+const {userService} = require("../service/index");
 
 
 // 1. 회원 가입 POST users register
@@ -64,7 +65,7 @@ userRouter.patch("/profile", loginRequired, async function (req, res, next) {
 
 
 // 6. 내가 '좋아요'누른 게시물 보기
-// @route    GET api/user/posts/likes/:userId
+// @route    GET api/user/board/likes/:userId
 userRouter.get("posts/likes",  loginRequired, async function (req, res, next) {
     try {
         const getLikesPostssData = await userService.getLikesPostssData();

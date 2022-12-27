@@ -2,8 +2,6 @@ const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken");
 const {models} = require('../db/index');
 
-const userService = [addUser,getUserToken,getUserData, getLikesPostsData, getPostsData]
-
 // 1. 회원 가입 POST users register
 const addUser = () => {
     return models.user_id;
@@ -12,7 +10,7 @@ const addUser = () => {
 
 // 2. 로그인 POST users login
 const getUserToken = () => {
-    return models.user_id ;
+    return models.user_id;
 }
 
 // 3. 로그아웃 POST users logout
@@ -59,4 +57,4 @@ const getPostsData = async () => {
     return posts;
 }
 
-module.exports = {userService};
+module.exports = {addUser, getUserToken, getUserData, getLikesPostsData, getPostsData};
