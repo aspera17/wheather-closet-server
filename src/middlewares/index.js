@@ -1,4 +1,4 @@
-const loginRequired = require("./login-required");
+const {loginRequired} = require("./login-required");
 
 
 module.exports = { loginRequired };

@@ -9,7 +9,7 @@ module.exports = (sequelize) => {
         primaryKey: true,
       },
       tag_id: {
-        type: DataTypes.INTEGER,UNSIGNED,
+        type: DataTypes.INTEGER.UNSIGNED,
         allowNull: false,
       },
       url: {

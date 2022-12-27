@@ -55,14 +55,4 @@ boardRouter.delete('/:boardId', /*loginRequired*/ async (req, res, next) => {
     }
 })
 
-//9. 태그 목록 조회
-boardRouter.get('/tag', /*loginRequired*/ async (req, res, next) => {
-    try {
-        const board = await boardService.getBoardTag()
-        res.json(board);
-    } catch (error) {
-        next(error)
-    }
-})
-
 module.exports = boardRouter;

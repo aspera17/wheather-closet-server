@@ -19,7 +19,7 @@ module.exports = (sequelize) => {
         defaultValue: 0,
       },
       city: {
-        tpye: DataTypes.STRING,
+        type: DataTypes.STRING,
         allowNull: false,
         defaultValue: "서울시",
       }
