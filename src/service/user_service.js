@@ -23,57 +23,33 @@ const createUser = async (email, nickname, password) => {
 }
 
 const getUserToken = async (email, password) => {
-    // 입력한 이메일을 모델 user_profile에 있는지 찾아보기
-    const checkEmail = await models.user_profile.findOne( {where : { email : req.body.email }});
-
-    // 이메일이 속한 로우에서 user_id 뽑고, => user_id와 일치하는 비밀번호 해쉬값 찾아오기
-    
+    // 1.입력한 이메일을 모델 user_profile에 있는지 찾아보기
+    const checkEmail = await models.user_profile.findOne( {where : { email : email }});
+    //2. 이메일이 속한 로우에서 user_id 뽑고, => 어떻게??
+    const getUserId = checkEmail.user_id
+    // const getuserid = await models.user_profile.findOne( { where: {email : email}})
+    //3. => user_id와 일치하는 비밀번호 해쉬값 찾아오기
+    const getUserPassword = await models.user_password.findOne( { where: { user_id : getUserId }})
+    const hashPassword = getUserPassword.password
+    // const hashPassword = models.user_password.findByuserId({getUserId})
     // 해쉬화된 비밀번호랑 로그인창에서 입력된 비밀번호 비교
-    // const getuserId = await models.
-    const hashPassword = models.user_password.findById({email})
     const checkPassword = await bcrypt.compare(password, hashPassword);
-    // const checkPassword = await models.user_password.findOne( {where : {password : req.body.password}});
-        // 비교하기
+    
     if (!email in checkEmail) {
         return console.log("이메일을 확인하세요.");
-
     } else if (!checkPassword) {
         return console.log("비밀번호를 확인하세요.")
     }
 
     // 일치하는 사용자가 출현하면 넘어가자
-    // 최초 로그인인 경우 => jwt 토큰 발급
-    const getToken = await jwt(accessToken, key);
+    const secretKey = process.env.JWT_SECRET_KEY;
+    // 2개 프로퍼티를 jwt 토큰에 담음
+    const token = jwt.sign({ sub: models.user.id }, secretKey);
 
-    // 최초 로그인 아닌 jwt토큰 발급 받은 사용자?                              
-    
+    return  token ;
 
-    return userToken;
 }
 
 
-// 3. 로그아웃 POST users logout
 
-
-// 4. 내 정보 조회(GET)
-const getUserData = async (email) => {
-    const getUserinfo = await this.User_profile.findAll({
-        attributes: ['email', 'image_id', 'user_id'],
-        /* where: {
-          married: true, // married = 1
-          age: { [Op.gt]: 30 }, // age > 30;
-      }, */
-    })
-    // db에서 찾지 못한 경우, 에러 메시지 반환
-    if (!getUserinfo) {
-        throw new Error("가입 내역이 없습니다. 다시 한 번 확인해 주세요.");
-    }
-
-    return getUserinfo;
-}
-
-// 5. 내 정보 수정 PATCH users modify
-
-
-
-module.exports = {createUser, getUserToken, getUserData };
+module.exports = {createUser, getUserToken};
