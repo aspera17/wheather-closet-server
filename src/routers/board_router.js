@@ -18,13 +18,14 @@ boardRouter.post('/:userId', loginRequired, async (req, res, next) => {
 // 2. 게시물 조회 (좋아요순서, 시간순서, 거리순서)
 boardRouter.get('/', async (req, res, next) => {
     try {
-        const board = await boardService.getBoardByOption()
+        // const orderBy = req.query;
+        const board = await boardService.getBoard()
         res.json(board);
     } catch (error) {
         next(error)
     }
 })
-
+// 3. 내가 등록한 게시물 조회
 boardRouter.get('/me', async (req, res, next) => {
     res.json({"boards": []});
 });

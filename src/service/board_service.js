@@ -1,4 +1,5 @@
 const { models } = require('../db/index'); 
+const board = require('../db/models/board');
 
 // 1. 게시물 등록
 //     const createBoard = () => {
@@ -7,8 +8,11 @@ const { models } = require('../db/index');
 
 // 2. 게시물 조회 (옵션)
 // 2-1. 시간 순서
-    const getBoardByOption = () => {
-        return models.board.findAll(board_id);
+const getBoard = () => {
+    board.findAll ({
+    order: ['created_at', 'DESC']})
+    
+    return models.board.findAll()
 }
 
 // 3. 게시물에 좋아요 누르기
@@ -17,4 +21,4 @@ const { models } = require('../db/index');
 
 // 5. 게시물 삭제하기
 
-module.exports = {getBoardByOption};
+module.exports = {getBoard};
