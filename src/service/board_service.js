@@ -9,12 +9,11 @@ const board = require('../db/models/board');
 // 2. 게시물 조회 (옵션)
 // 2-1. 시간 순서
 const getBoard = () => {
-    board.findAll ({
-    order: ['created_at', 'DESC']})
-    
-    return models.board.findAll()
+    return models.board.findAll({ 
+    order: [['created_at', 'DESC']]
+})
 }
-
+       
 // 3. 게시물에 좋아요 누르기
 
 // 4. 게시물에 좋아요 취소하기
