@@ -4,7 +4,7 @@ const userRouter = express.Router();
 const {loginRequired} = require("../middlewares");
 
 const {userService} = require("../service/index");
-const { getUserToken } = require("../service/user_service");
+const { createUser, getUserToken } = require("../service/user_service");
 
 
 // @route    POST api/user/register
@@ -17,7 +17,7 @@ userRouter.post("/register", async function (req, res, next) {
         
         const user = await createUser(email, nickname, password)
 
-        res.status(200).json(user);
+        res.status(201).json(user);
 
     } catch (error) {
         next(error);
@@ -41,6 +41,7 @@ userRouter.post("/login", async function (req, res, next) {
     }
   }
 );
+
 
 // 3. 로그아웃 POST users logout
 // @route    POST api/user/logout
