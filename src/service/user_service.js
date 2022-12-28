@@ -3,26 +3,30 @@ const jwt = require("jsonwebtoken");
 const {models} = require('../db/index');
 
 
-const createUser = async () => {
-    const checkEmail = await models.user_profile.findOne( {where : {email : userEmail}});
-    const checkNickname = await models.user.req.body.nickname.findOne( {whrere : {nickname: req.body.nickname}});
-    const hashPassword = await bcrypt.hash(req.body.password, 12);
-    if (checkEmail) {
+const createUser = async (email, nickname, password) => {
+    const checkEmail = await models.user_profile.findOne( {where : {email : req.body.email}});
+    const checkNickname = await models.user.findOne( {whrere : {nickname: req.body.nickname}});
+    const hashPassword = await bcrypt.hash(password, 12);
+    if (email in checkEmail) {
         return console.log("이미 사용중인 이메일입니다.");
-    } else if (checkNickname) {
+    } else if (nickname in checkNickname) {
         return console.log("이미 사용중인 닉네임입니다.");
     }
     
-    return models.user_password.create({ password: hashPassword }), models.user_profile.create({ email: req.body.email}), models.user.create({ nickname: req.body.nickname}) ;
+    const newUser = await models
+                            .user_password.create({ password: hashPassword })
+                            .user_profile.create({ email: req.body.email})
+                            .user.create({ nickname: req.body.nickname})
+
+    return newUser;
     
 }
 
-const getUserToken = async () => {
-    const checkEmail = await models.user_profile.findOne( {where : {email : userEmail}});
-    const checkPassword = await models.user_password.findOne( {where : {password : req.body.password}});
-
-    const findUserId = await models.user.findAll( { where: {id : userId}})
-    const findUserInfo = await models.user_profile.findAll( { where: {user_id : userId}})
+const getUserToken = async (email, password) => {
+    const checkEmail = await models.user_profile.findById({email});
+    // const checkEmail = await models.user_profile.findOne( {where : {email : req.body.email}});
+    const checkPassword = await models.user_password.findById({password});
+    // const checkPassword = await models.user_password.findOne( {where : {password : req.body.password}});
 
     if (!checkEmail) {
         return console.log("이메일을 확인하세요.");
@@ -30,9 +34,14 @@ const getUserToken = async () => {
     } else if (!checkPassword) {
         return console.log("비밀번호를 확인하세요.")
     }
-    //최초 로그인 시,토큰 발급
-    //기존 회원 토큰?
-    return findUserId, findUserInfo //토큰 추가!?;
+
+
+    // 최초 로그인 jwt토큰 발급
+    
+    // jwt토큰 발급 받은 사용자?                              
+    const userToken = await jwt(accessToken, key);
+
+    return userToken;
 }
 
 

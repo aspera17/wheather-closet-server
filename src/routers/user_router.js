@@ -10,7 +10,12 @@ const { getUserToken } = require("../service/user_service");
 // @route    POST api/user/register
 userRouter.post("/register", async function (req, res, next) {
     try {
-        const user = await createUser()
+
+        const email = req.body.email;
+        const nickname = req.body.nickname;
+        const password = req.body.password;
+        
+        const user = await createUser(email, nickname, password)
 
         res.json(user);
 
@@ -24,10 +29,13 @@ userRouter.post("/register", async function (req, res, next) {
 // @route    POST api/user/login
 userRouter.post("/login", async function (req, res, next) {
     try {
-      
-      const userToken = await getUserToken();
+      const email = req.body.email;
+      const password = req.body.password;
+
+      const userToken = await getUserToken(email, password);
 
       res.status.json(userToken);
+
     } catch (error) {
       next(error);
     }
