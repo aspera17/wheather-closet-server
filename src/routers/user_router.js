@@ -4,27 +4,30 @@ const userRouter = express.Router();
 const {loginRequired} = require("../middlewares");
 
 const {userService} = require("../service/index");
+const { getUserToken } = require("../service/user_service");
 
 
-// 1. 회원 가입 POST users register
 // @route    POST api/user/register
 userRouter.post("/register", async function (req, res, next) {
-    res.status(201)
+    try {
+        const user = await createUser()
+
+        res.json(user);
+
+    } catch (error) {
+        next(error);
+    }
+
 }
 );
 
-// 2. 로그인 POST users login
 // @route    POST api/user/login
 userRouter.post("/login", async function (req, res, next) {
     try {
+      
+      const userToken = await getUserToken();
 
-      const email = req.body.email;
-      const password = req.body.password;
-
-      // TODO: 이메일 유저 확인 후 토큰 발급
-
-      // jwt 토큰을 프론트에 보냄 (jwt 토큰은, 문자열임)
-      res.status(200).json(userToken);
+      res.status.json(userToken);
     } catch (error) {
       next(error);
     }
@@ -62,37 +65,6 @@ userRouter.patch("/profile", loginRequired, async function (req, res, next) {
      res.status(200)
 });
 
-
-
-// 6. 내가 '좋아요'누른 게시물 보기
-// @route    GET api/user/board/likes/:userId
-userRouter.get("posts/likes",  loginRequired, async function (req, res, next) {
-    try {
-        const getLikesPostssData = await userService.getLikesPostssData();
-        res.json(getLikesPostssData);
-        //   res.status(200).json(getLikesPostssData);
-
-    } catch (err) {
-        res.status(500).send("Server Error");
-    }
-}
-);
-
-
-
-// 7. 내가 등록한 게시물 보기
-// @route    GET api/user/posts/:userId
-userRouter.get("/posts", loginRequired, async function (req, res) {
-    try {
-        const userId = req.userId;
-        const getPostsData = await userService.getPostsData(userId);
-        res.json(getPostsData);
-        //   res.status(200).json(getPostsData);
-    } catch (err) {
-        res.status(500).send("Server Error");
-    }
-}
-);
 
 
 // 8. 회원 탈퇴 DELETE users DELELE
