@@ -28,8 +28,9 @@ boardRouter.get('/', async (req, res, next) => {
 
 boardRouter.get('/me', loginRequired, async function (req, res, next) {
     try {
-        const myboard = await getBoardMyData();
-        res.json({"userId": myboard});
+        const userId = req.userId;
+        const myboard = await getBoardMyData(userId);
+        res.json({"board": myboard});
 
     } catch (err) {
         next(err)

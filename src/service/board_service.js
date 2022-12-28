@@ -11,8 +11,12 @@ const { models } = require('../db/index');
         return models.board.findAll(board_id);
 }
 
-const getBoardMyData = async () => {
-    return models.board.findOne();
+const getBoardMyData = async (userId) => {
+    // return models.board.findAll();
+
+    const board = await models.board.findAll(
+        { where: { user_id: userId }});
+    return board;
 }
 
 // 3. 게시물에 좋아요 누르기
