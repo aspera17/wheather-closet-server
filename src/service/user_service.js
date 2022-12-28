@@ -30,7 +30,8 @@ const getUserToken = async () => {
     } else if (!checkPassword) {
         return console.log("비밀번호를 확인하세요.")
     }
-    //토큰 발급
+    //최초 로그인 시,토큰 발급
+    //기존 회원 토큰?
     return findUserId, findUserInfo //토큰 추가!?;
 }
 
