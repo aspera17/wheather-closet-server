@@ -17,14 +17,14 @@ userRouter.post("/register", async function (req, res, next) {
         
         const user = await createUser(email, nickname, password)
 
-        res.json(user);
+        res.status(200).json(user);
 
     } catch (error) {
         next(error);
     }
-
 }
 );
+
 
 // @route    POST api/user/login
 userRouter.post("/login", async function (req, res, next) {
@@ -34,7 +34,7 @@ userRouter.post("/login", async function (req, res, next) {
 
       const userToken = await getUserToken(email, password);
 
-      res.status.json(userToken);
+      res.status(200).json(userToken);
 
     } catch (error) {
       next(error);
