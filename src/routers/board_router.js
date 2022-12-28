@@ -2,7 +2,8 @@ const express = require("express");
 const {loginRequired} = require("../middlewares/login-required");
 const boardRouter = express.Router();
 
-const {boardService} = require("../service");
+// const {boardService} = require("../service");
+const {getBoardMyData} = require("../service/board_service");
 
 
 // 1. 게시물 등록
@@ -25,8 +26,15 @@ boardRouter.get('/', async (req, res, next) => {
     }
 })
 
-boardRouter.get('/me', async (req, res, next) => {
-    res.json({"boards": []});
+boardRouter.get('/me', loginRequired, async function (req, res, next) {
+    try {
+        const myboard = await getBoardMyData();
+        res.json({"userId": myboard});
+
+    } catch (err) {
+        next(err)
+    }
+
 });
 
 // 3. 게시물에 좋아요 누르기
