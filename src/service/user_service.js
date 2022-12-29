@@ -49,10 +49,16 @@ const getUserToken = async (email, password) => {
 
 }
 
+
 const getUserData =  async (userId) => {
-    // TODO: user에서 nickname, user_profile에서 email, image_id,
-    // 테이블에서 정보를 가져와서 하나의 {} 안에 넣어서 보여준다..? 
-    return {"nickname": "홍길동", "image": "https"};
+    // TODO: 이메일(user_profile > email), 닉네임(user > nickname)
+    const user = await models.user.findOne({where: {id: userId}})
+    const userProfile = await models.user_profile.findOne({where: {user_id: userId}})
+
+    userNickName = user.nickname
+    userEmail = userProfile.email
+    // 테이블에서 정보를 하나씩 가져와서 하나의 {} 안에 넣어서 보여준다..? => 여기서 조인해야 하나?
+    return { userNickName, userEmail };
 }
 
 

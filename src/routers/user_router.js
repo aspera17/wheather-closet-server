@@ -53,7 +53,6 @@ userRouter.post("/logout", async function (req, res, next) {
 );
 
 
-// 4. 내 정보 조회(GET)
 // @route    GET api/user/profile/:userId
 userRouter.get("/profile",  loginRequired, async function (req, res, next) {
     try {
@@ -61,8 +60,7 @@ userRouter.get("/profile",  loginRequired, async function (req, res, next) {
         const userId = req.userId;
         // const currentUserInfo = await userService.getUserData(email);
         const currentUserInfo = await userService.getUserData(userId)
-        res.json({ "profile" : currentUserInfo});
-        // res.status(200).json(currentUserInfo);
+        res.status(200).json({ "profile" : currentUserInfo});
     } catch (error) {
         next(error);
     }
