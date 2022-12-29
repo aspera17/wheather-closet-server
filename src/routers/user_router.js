@@ -32,9 +32,10 @@ userRouter.post("/login", async function (req, res, next) {
       const email = req.body.email;
       const password = req.body.password;
 
-      const userToken = await getUserToken(email, password);
+      
+      const token = await getUserToken(email, password);
 
-      res.status(200).json(userToken);
+      res.status(200).json(token);
 
     } catch (error) {
       next(error);
