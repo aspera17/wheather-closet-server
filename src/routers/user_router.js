@@ -4,7 +4,7 @@ const userRouter = express.Router();
 const {loginRequired} = require("../middlewares");
 
 const {userService} = require("../service/index");
-const { createUser, getUserToken, getUserData } = require("../service/user_service");
+const { createUser, getUserToken, getUserData, updateUserInfo } = require("../service/user_service");
 
 
 // @route    POST api/user/register
@@ -59,7 +59,7 @@ userRouter.get("/profile",  loginRequired, async function (req, res, next) {
 
         const userId = req.userId;
         // const currentUserInfo = await userService.getUserData(email);
-        const currentUserInfo = await userService.getUserData(userId)
+        const currentUserInfo = await getUserData(userId)
         res.status(200).json({ "profile" : currentUserInfo});
     } catch (error) {
         next(error);
@@ -67,10 +67,19 @@ userRouter.get("/profile",  loginRequired, async function (req, res, next) {
 });
 
 
-// 5. 내 정보 수정 PATCH users modify
 // @route    PATCH api/user/profile/:userId
 userRouter.patch("/profile", loginRequired, async function (req, res, next) {
-     res.status(200)
+    try{
+
+      const userId = req.userId;
+      const newNickName = req.body.nickname;
+      const newPassword = req.body.password;
+      const user = await updateUserInfo(userId, newNickName, newPassword);
+      res.status(201).json(user)
+
+    } catch (error) {
+      next(error);
+    }
 });
 
 
