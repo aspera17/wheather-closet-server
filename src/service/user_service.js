@@ -44,6 +44,9 @@ const getUserToken = async (email, password) => {
     const secretKey = process.env.JWT_SECRET_KEY;
     // 2개 프로퍼티를 jwt 토큰에 담음
     const token = jwt.sign({ sub: getUserId }, secretKey);
+    // const intToken = token.replace(/\"/gi, "");
+    // replaceAll("\"", "")
+    // const userToken = await models.user_token.create({refresh_token: intToken, user_id: getUserId});
 
     return  token ;
 
@@ -94,6 +97,18 @@ const userLogout = async(userId) => {
    
 }
 
+const delUser = async(userId) => {
+    //TODO: userId로...다 삭제!(user, user_profile, user_password, user_token)
+    // 작성한 게시글 삭제도 구현해야 하나..? => 안 해
+    // Truncate the table(완전삭제) { truncate: true } =>  테이블까지 지우니까 NO
+    const deleteUserProfile = await models.user_profile.destroy({ where: {user_id: userId } });
+    const deleteUserPassword = await models.user_password.destroy({ where: {user_id: userId } });
+    const deleteUserToken = await models.user_token.destroy({ where: {user_id: userId } });
+    const deleteUser = await models.user.destroy({ where: {id: userId } });
+
+    return deleteUser ;
+}
 
 
-module.exports = {createUser, getUserToken, getUserData, updateUserInfo, userLogout};
+
+module.exports = {createUser, getUserToken, getUserData, updateUserInfo, userLogout, delUser};

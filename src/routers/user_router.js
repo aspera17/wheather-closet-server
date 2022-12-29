@@ -4,7 +4,7 @@ const userRouter = express.Router();
 const {loginRequired} = require("../middlewares");
 
 const {userService} = require("../service/index");
-const { createUser, getUserToken, getUserData, updateUserInfo, userLogout } = require("../service/user_service");
+const { createUser, getUserToken, getUserData, updateUserInfo, userLogout, delUser } = require("../service/user_service");
 
 
 // @route    POST api/user/register
@@ -78,7 +78,7 @@ userRouter.patch("/profile", loginRequired, async function (req, res, next) {
       const newNickName = req.body.nickname;
       const newPassword = req.body.password;
       const user = await updateUserInfo(userId, newNickName, newPassword);
-      res.status(201).json(user)
+      res.status(200).json(user)
 
     } catch (error) {
       next(error);
@@ -91,7 +91,9 @@ userRouter.patch("/profile", loginRequired, async function (req, res, next) {
 // @route    DELETE api/user/:userId
 userRouter.delete("/",loginRequired, async function (req, res, next) {
       try {
-        res.status(200);
+        const userId = req.userId;
+        const user = await delUser(userId);
+        res.status(201).send({"delete" : user });
       } catch (err) {
         next(err);
       }
