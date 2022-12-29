@@ -4,22 +4,21 @@ const {models} = require('../db/index');
 
 
 const createUser = async (email, nickname, password) => {
-    const checkEmail = await models.user_profile.findOne( {where : { email : email }});
-    const checkNickname = await models.user.findOne( {whrere : { nickname : nickname }});
-    const hashPassword = await bcrypt.hash(password, 12);
-    if (email in checkEmail) {
-        return console.log("이미 사용중인 이메일입니다.");
-    } else if (nickname in checkNickname) {
-        return console.log("이미 사용중인 닉네임입니다.");
+    const userProfile = await models.user_profile.findOne({where: {'email': email}});
+    if (userProfile) {
+        return Error("이미 사용중인 이메일입니다.");
+    }
+    const checkNickname = await models.user.findOne({where: {nickname: nickname}});
+    if (checkNickname) {
+        return Error("이미 사용중인 닉네임입니다.");
     }
     
-    const newUser = await models
-                            .user_password.create({ password: hashPassword })
-                            .user_profile.create({ email: email })
-                            .user.create({ nickname: nickname })
+    const user = await models.user.create({nickname: nickname,})
+    const hashPassword = await bcrypt.hash(password, 12);
+    await models.user_password.create({password: hashPassword, user_id: user.id});
+    await models.user_profile.create({email: email, user_id: user.id});
 
-    return newUser;
-    
+    return;
 }
 
 //login,sign 할 껀데!!? 왜 getUserToken
@@ -50,7 +49,8 @@ const getUserToken = async (email, password) => {
 }
 
 const getUserData =  async (userId) => {
-    // TODO: user에서 nickname, user_profile에서 email, image_id, 
+    // TODO: user에서 nickname, user_profile에서 email, image_id,
+    // 테이블에서 정보를 가져와서 하나의 {} 안에 넣어서 보여준다..? 
     return {"nickname": "홍길동", "image": "https"};
 }
 
