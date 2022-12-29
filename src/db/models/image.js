@@ -1,27 +1,35 @@
 const {DataTypes} = require('sequelize');
 
 module.exports = (sequelize) => {
-    sequelize.define('user', {
+    sequelize.define('image', {
       id: {
         type: DataTypes.INTEGER.UNSIGNED,
         allowNull: false,
         autoIncrement: true,
-        primaryKey: true,
+        primaryKey: true,  
       },
-      nickname: {
-        type: DataTypes.STRING, // STRING = VARCHAR(255)
-        allowNull: false,
+      url: {
+        type: DataTypes.STRING(1024),
+        allowNull: true,
       },
-      }, {
+      file_key: {
+        type: DataTypes.STRING(300),
+        allowNull: true,
+      },
+      name: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+    }, {
         sequelize,
-        timestamps: false,
+        timestamps: true,
         updatedAt: false,
         deletedAt: false,
         createdAt: true,
-        // underscored: true, 
+        underscored: true, 
         freezeTableName: true,
-        // paranoid: true, //soft delete
         charset: 'utf8',
         collate: 'utf8_general_ci',
-      });
+    });
+
 };

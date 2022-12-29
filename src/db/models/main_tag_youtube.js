@@ -1,27 +1,28 @@
 const {DataTypes} = require('sequelize');
 
 module.exports = (sequelize) => {
-    sequelize.define('user', {
+    sequelize.define('main_tag_youtube', {
       id: {
         type: DataTypes.INTEGER.UNSIGNED,
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
       },
-      nickname: {
-        type: DataTypes.STRING, // STRING = VARCHAR(255)
+      tag_id: {
+        type: DataTypes.INTEGER.UNSIGNED,
         allowNull: false,
       },
+      url: {
+        type: DataTypes.STRING(1024),
+        allowNull: true,
+        primaryKey: true,
+      },
       }, {
-        sequelize,
-        timestamps: false,
-        updatedAt: false,
-        deletedAt: false,
-        createdAt: true,
-        // underscored: true, 
+        sequelize, 
+        underscored: true, 
         freezeTableName: true,
-        // paranoid: true, //soft delete
+        paranoid: false,
         charset: 'utf8',
         collate: 'utf8_general_ci',
-      });
+     });
 };

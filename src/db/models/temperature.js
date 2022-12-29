@@ -1,27 +1,27 @@
 const {DataTypes} = require('sequelize');
 
 module.exports = (sequelize) => {
-    sequelize.define('user', {
+    sequelize.define('temperature', {
       id: {
         type: DataTypes.INTEGER.UNSIGNED,
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
       },
-      nickname: {
-        type: DataTypes.STRING, // STRING = VARCHAR(255)
+      min: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      max: {
+        type: DataTypes.INTEGER,
         allowNull: false,
       },
       }, {
         sequelize,
-        timestamps: false,
-        updatedAt: false,
-        deletedAt: false,
-        createdAt: true,
-        // underscored: true, 
+        underscored: true, 
         freezeTableName: true,
-        // paranoid: true, //soft delete
+        paranoid: true, //soft delete
         charset: 'utf8',
         collate: 'utf8_general_ci',
-      });
+     });
 };

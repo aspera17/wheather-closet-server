@@ -12,6 +12,3 @@ const statusCode = {
     SERVICE_UNAVAILABLE: 503,
     DB_ERROR: 600,
   };
-  
-  export default statusCode;
-  
