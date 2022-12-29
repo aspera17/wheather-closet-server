@@ -13,7 +13,7 @@ const createUser = async (email, nickname, password) => {
         return Error("이미 사용중인 닉네임입니다.");
     }
     
-    const user = await models.user.create({nickname: nickname,})
+    const user = await models.user.create({nickname: nickname});
     const hashPassword = await bcrypt.hash(password, 12);
 
     await models.user_password.create({password: hashPassword, user_id: user.id});
@@ -50,11 +50,36 @@ const getUserToken = async (email, password) => {
 }
 
 const getUserData =  async (userId) => {
-    // TODO: user에서 nickname, user_profile에서 email, image_id,
-    // 테이블에서 정보를 가져와서 하나의 {} 안에 넣어서 보여준다..? 
-    return {"nickname": "홍길동", "image": "https"};
+    // TODO: 이메일(user_profile > email), 닉네임(user > nickname)
+    const user = await models.user.findOne({where: {id: userId}})
+    const userProfile = await models.user_profile.findOne({where: {user_id: userId}})
+
+    userNickName = user.nickname;
+    userEmail = userProfile.email
+    // 테이블에서 정보를 하나씩 가져와서 하나의 {} 안에 넣어서 보여준다..? => 여기서 조인해야 하나?
+    return { userNickName, userEmail };
+}
+
+const updateUserInfo = async(userId, newNickName, newPassword) => {
+    //TODO: 이메일조회(user_profile > email), 닉네임변경(uesr > nickname), 패스워드변경(user_password>password)
+    const userProfile = await models.user_profile.findOne({where: {user_id: userId}})
+    // const user = await models.user.findOne({where: {id: userId}})
+    // const userPassword = await models.user_password.findOne( { where: { user_id : userId }})
+    const userEmail = userProfile.email;
+    // const userNickName = user.nickname;
+    //const hashPassword = userPassword.password;
+
+    const checkNickname = await models.user.findOne({where: { 'nickname' : newNickName }});
+    if (checkNickname) {
+        return Error("이미 사용중인 닉네임입니다.");
+    }
+    const updateNickName = await models.user.update({'nickname': newNickName }, {where: {id: userId}})
+
+    const hashPassword = await bcrypt.hash(newPassword, 12);
+    const updatePassword = await models.user_password.update({'password': hashPassword}, {where: {user_id: userId}})
+
+    return {userEmail};
 }
 
 
-
-module.exports = {createUser, getUserToken, getUserData};
+module.exports = {createUser, getUserToken, getUserData, updateUserInfo};
