@@ -8,17 +8,18 @@ const createUser = async (email, nickname, password) => {
     if (userProfile) {
         return Error("이미 사용중인 이메일입니다.");
     }
-    const checkNickname = await models.user.findOne({where: {nickname: nickname}});
+    const checkNickname = await models.user.findOne({where: { 'nickname' : nickname}});
     if (checkNickname) {
         return Error("이미 사용중인 닉네임입니다.");
     }
     
     const user = await models.user.create({nickname: nickname,})
     const hashPassword = await bcrypt.hash(password, 12);
+
     await models.user_password.create({password: hashPassword, user_id: user.id});
     await models.user_profile.create({email: email, user_id: user.id});
 
-    return;
+    return ;
 }
 
 //login,sign 할 껀데!!? 왜 getUserToken
