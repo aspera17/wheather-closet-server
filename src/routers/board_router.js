@@ -3,7 +3,7 @@ const {loginRequired} = require("../middlewares/login-required");
 const boardRouter = express.Router();
 
 // const {boardService} = require("../service");
-const {getBoardMyData} = require("../service/board_service");
+const {getBoard, getBoardMyData} = require("../service/board_service");
 
 
 // 1. 게시물 등록
@@ -20,7 +20,7 @@ boardRouter.post('/:userId', loginRequired, async (req, res, next) => {
 boardRouter.get('/', async (req, res, next) => {
     try {
         // const orderBy = req.query;
-        const board = await boardService.getBoard()
+        const board = await getBoard()
         res.json(board);
     } catch (error) {
         next(error)
