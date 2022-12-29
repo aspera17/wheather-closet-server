@@ -3,18 +3,22 @@ const {loginRequired} = require("../middlewares/login-required");
 const boardRouter = express.Router();
 
 // const {boardService} = require("../service");
-const {getBoard, getBoardMyData} = require("../service/board_service");
+const { getBoard, getBoardMyData} = require("../service/board_service");
 
 
-// 1. 게시물 등록
-boardRouter.post('/:userId', loginRequired, async (req, res, next) => {
-    try {
-        const board = await boardService.createBoard()
-        res.json(board);
-    } catch (error) {
-        next(error)
-    }
-})
+// @route    POST api/board/register/:userId
+// boardRouter.post('/', loginRequired, async (req, res, next) => {
+//     try {
+//         const userId = req.userId;
+//         const lat = req.body.latitude;
+//         const long = req.body.longtitude;
+//         const password = req.body.password;
+//         const board = await createBoard(userId)
+//         res.status(201).json(board);
+//     } catch (error) {
+//         next(error)
+//     }
+// })
 
 // 2. 게시물 조회 (좋아요순서, 시간순서, 거리순서)
 boardRouter.get('/', async (req, res, next) => {
@@ -27,6 +31,7 @@ boardRouter.get('/', async (req, res, next) => {
     }
 })
 
+// 내가 등록한 게시글 조회
 boardRouter.get('/me', loginRequired, async function (req, res, next) {
     try {
         const userId = req.userId;
