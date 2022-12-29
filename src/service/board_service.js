@@ -13,11 +13,19 @@ const getBoard = () => {
     order: [['created_at', 'DESC']]
 })
 }
-       
+
+const getBoardMyData = async (userId) => {
+    // return models.board.findAll();
+
+    const board = await models.board.findAll(
+        { where: { user_id: userId }});
+    return board;
+}
+
 // 3. 게시물에 좋아요 누르기
 
 // 4. 게시물에 좋아요 취소하기
 
 // 5. 게시물 삭제하기
 
-module.exports = {getBoard};
+module.exports = {getBoard, getBoardMyData};

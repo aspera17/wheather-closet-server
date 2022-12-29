@@ -11,16 +11,16 @@ module.exports = (sequelize) => {
       nickname: {
         type: DataTypes.STRING, // STRING = VARCHAR(255)
         allowNull: false,
-      }
+      },
       }, {
         sequelize,
-        timestamps: true,
+        timestamps: false,
         updatedAt: false,
         deletedAt: false,
         createdAt: true,
-        underscored: true, 
+        // underscored: true, 
         freezeTableName: true,
-        paranoid: true, //soft delete
+        // paranoid: true, //soft delete
         charset: 'utf8',
         collate: 'utf8_general_ci',
       });
