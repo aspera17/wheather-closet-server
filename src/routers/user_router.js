@@ -87,8 +87,6 @@ userRouter.patch("/profile", loginRequired, async function (req, res, next) {
 });
 
 
-
-// 6. 회원 탈퇴 DELETE users DELELE
 // @route    DELETE api/user/:userId
 userRouter.delete("/",loginRequired, async function (req, res, next) {
       try {

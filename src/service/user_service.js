@@ -110,5 +110,4 @@ const delUser = async(userId) => {
 }
 
 
-
 module.exports = {createUser, getUserToken, getUserData, updateUserInfo, userLogout, delUser};
