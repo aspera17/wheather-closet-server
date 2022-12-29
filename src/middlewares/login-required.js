@@ -20,7 +20,7 @@ const loginRequired = (req, res, next) => {
 
   try {
     //헤더에 있는 토큰 decode
-    const key = process.env.SECRET_KEY;
+    const key = process.env.JWT_SECRET_KEY;
     const payload = jwt.verify(accessToken, key);
     req.userId = payload.sub;
     req.userEmail = payload.email;

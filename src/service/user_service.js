@@ -22,6 +22,7 @@ const createUser = async (email, nickname, password) => {
     
 }
 
+//login,sign 할 껀데!!? 왜 getUserToken
 const getUserToken = async (email, password) => {
     // 1.입력한 이메일을 모델 user_profile에 있는지 찾아보기
     const checkEmail = await models.user_profile.findOne( {where : { email : email }});
@@ -34,22 +35,25 @@ const getUserToken = async (email, password) => {
     // const hashPassword = models.user_password.findByuserId({getUserId})
     // 해쉬화된 비밀번호랑 로그인창에서 입력된 비밀번호 비교
     const checkPassword = await bcrypt.compare(password, hashPassword);
-    
-    if (!email in checkEmail) {
+
+    if (!checkEmail) {
         return console.log("이메일을 확인하세요.");
-    } else if (!checkPassword) {
-        return console.log("비밀번호를 확인하세요.")
     }
 
-    // 일치하는 사용자가 출현하면 넘어가자
+    // jwt가 리프레쉬토큰을 만들자!(리프레쉬~매번 생성한다.)
     const secretKey = process.env.JWT_SECRET_KEY;
     // 2개 프로퍼티를 jwt 토큰에 담음
-    const token = jwt.sign({ sub: models.user.id }, secretKey);
+    const token = jwt.sign({ sub: getUserId }, secretKey);
 
     return  token ;
 
 }
 
+const getUserData =  async (userId) => {
+    // TODO: user에서 nickname, user_profile에서 email, image_id, 
+    return {"nickname": "홍길동", "image": "https"};
+}
 
 
-module.exports = {createUser, getUserToken};
+
+module.exports = {createUser, getUserToken, getUserData};

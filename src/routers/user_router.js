@@ -4,7 +4,7 @@ const userRouter = express.Router();
 const {loginRequired} = require("../middlewares");
 
 const {userService} = require("../service/index");
-const { createUser, getUserToken } = require("../service/user_service");
+const { createUser, getUserToken, getUserData } = require("../service/user_service");
 
 
 // @route    POST api/user/register
@@ -55,12 +55,13 @@ userRouter.post("/logout", async function (req, res, next) {
 
 // 4. 내 정보 조회(GET)
 // @route    GET api/user/profile/:userId
-userRouter.get("/profile",  /*loginRequired*/ async function (req, res, next) {
+userRouter.get("/profile",  loginRequired, async function (req, res, next) {
     try {
-        const email = req.email;
+
+        const userId = req.userId;
         // const currentUserInfo = await userService.getUserData(email);
-        const currentUserInfo = await userService.getUserData(email)
-        res.json(currentUserInfo);
+        const currentUserInfo = await userService.getUserData(userId)
+        res.json({ "profile" : currentUserInfo});
         // res.status(200).json(currentUserInfo);
     } catch (error) {
         next(error);
@@ -76,7 +77,7 @@ userRouter.patch("/profile", loginRequired, async function (req, res, next) {
 
 
 
-// 8. 회원 탈퇴 DELETE users DELELE
+// 6. 회원 탈퇴 DELETE users DELELE
 // @route    DELETE api/user/:userId
 userRouter.delete("/",loginRequired, async function (req, res, next) {
       try {
