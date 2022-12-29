@@ -81,5 +81,19 @@ const updateUserInfo = async(userId, newNickName, newPassword) => {
     return {userEmail};
 }
 
+const userLogout = async(userId) => {
+    //TODO : userId로 jwt토큰 찾기 => 토큰 찾으면 지우고 반환
+    //  이러면 로그인 할 때마다 토큰 테이블에 토큰 담아줘야 하는 거 아닌가?
+    const logout = await models.user_token.destroy({
+      where: {
+        user_id: userId
+      }
+    });
+    
+    return logout;
+   
+}
 
-module.exports = {createUser, getUserToken, getUserData, updateUserInfo};
+
+
+module.exports = {createUser, getUserToken, getUserData, updateUserInfo, userLogout};
