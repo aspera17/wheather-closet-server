@@ -4,7 +4,7 @@ const userRouter = express.Router();
 const {loginRequired} = require("../middlewares");
 
 const {userService} = require("../service/index");
-const { createUser, getUserToken, getUserData, updateUserInfo } = require("../service/user_service");
+const { createUser, getUserToken, getUserData, updateUserInfo, userLogout } = require("../service/user_service");
 
 
 // @route    POST api/user/register
@@ -43,14 +43,17 @@ userRouter.post("/login", async function (req, res, next) {
 );
 
 
-// 3. 로그아웃 POST users logout
-// @route    POST api/user/logout
-userRouter.post("/logout", async function (req, res, next) {
-    console.log("LogOut")
 
-    res.end();
-}
-);
+// @route  POST api/user/logout
+userRouter.post("/logout", loginRequired, async function(req, res, next) {
+  try {
+    const userId = req.userId;
+    const logout = await userLogout(userId)
+    res.status(200).send({"logout" : logout});
+  } catch (error) {
+    next(error);
+  }
+});
 
 
 // @route    GET api/user/profile/:userId
