@@ -3,7 +3,7 @@ const {loginRequired} = require("../middlewares/login-required");
 const boardRouter = express.Router();
 
 // const {boardService} = require("../service");
-const { getBoard, getBoardMyData} = require("../service/board_service");
+const { getBoard, getBoardMyData, delBoardMyData} = require("../service/board_service");
 
 
 // @route    POST api/board/register/:userId
@@ -31,12 +31,12 @@ boardRouter.get('/', async (req, res, next) => {
     }
 })
 
-// 내가 등록한 게시글 조회
+//3. 내가 등록한 게시글 조회
 boardRouter.get('/me', loginRequired, async function (req, res, next) {
     try {
         const userId = req.userId;
         const myboard = await getBoardMyData(userId);
-        res.json({"board": myboard});
+        res.status(200).json({myboard});
 
     } catch (err) {
         next(err)
@@ -44,7 +44,7 @@ boardRouter.get('/me', loginRequired, async function (req, res, next) {
 
 });
 
-// 3. 게시물에 좋아요 누르기
+//4. 게시물에 좋아요 누르기
 boardRouter.post('/like/:userId', loginRequired, async (req, res, next) => {
     try {
         const board = await boardService.addBoardLike()
@@ -54,7 +54,7 @@ boardRouter.post('/like/:userId', loginRequired, async (req, res, next) => {
     }
 })
 
-// 4. 게시물에 좋아요 취소하기
+//5. 게시물에 좋아요 취소하기
 boardRouter.post('/unlike/:userId', loginRequired, async (req, res, next) => {
     try {
         const board = await boardService.addBoardUnlike()
@@ -64,10 +64,10 @@ boardRouter.post('/unlike/:userId', loginRequired, async (req, res, next) => {
     }
 })
 
-// 5. 내가 등록한 게시물 삭제하기
+//6. 내가 등록한 게시물 삭제하기
 boardRouter.delete('/:boardId', loginRequired, async (req, res, next) => {
     try {
-        const board = await boardService.deleteBoard()
+        const board = await boardService.delBoardMyData()
         res.json(board);
     } catch (error) {
         next(error)

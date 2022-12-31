@@ -23,22 +23,16 @@ const getBoard = () => {
 }
 
 const getBoardMyData = async (userId) => {
-    // return models.board.findAll();
-
-    // const board = await models.board.findOne(
-    //     { where: { user_id: userId }});
-    // const boardId = board.id
-    // const boardImage = await models.board_image.findOne( { where: { board_id: boardId  }})
+    //TODO : 보드테이블 정보, 보드이미지(=>이미지테이블) URL정보 반환
+    const boardData = await models.board.findAll({ where: { user_id: userId }});
+    // const myBoard = await boardData.id;
+    // const boardId = await myBoard.id;
+    // const boardImage = await models.board_image.findAll( { where: { board_id: boardId  }})
     // const imageId = await boardImage.image_id;
-    // const image = await models.image.findOne(  { where: { id: imageId  }})
+    // const imageUrl = await models.image.findAll({where: {id : imageId}})
 
-    // return image;
-
-    
-    const board = await models.board.findAll(
-        { where: { user_id: userId }});
-    return board;
-
+    //return {"boardData": boardData ,"imageUrl":imageUrl}
+    return {"boardData": boardData} ;
 }
 
 // 3. 게시물에 좋아요 누르기
@@ -46,5 +40,8 @@ const getBoardMyData = async (userId) => {
 // 4. 게시물에 좋아요 취소하기
 
 // 5. 게시물 삭제하기
+const delBoardMyData = async (userId) => {
+    return;
+}
 
-module.exports = { getBoard, getBoardMyData};
+module.exports = { getBoard, getBoardMyData, delBoardMyData};

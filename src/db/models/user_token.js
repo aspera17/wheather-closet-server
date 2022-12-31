@@ -18,11 +18,11 @@ module.exports = (sequelize) => {
       }
       }, {
         sequelize,
-        timestamps: true,
-        updatedAt: false,
-        deletedAt: false,
-        createdAt: true,
-        underscored: true, 
+        timestamps: false,
+        // updatedAt: false,
+        // deletedAt: false,
+        // createdAt: true,
+        // underscored: true, 
         freezeTableName: true,
         paranoid: true, //soft delete
         charset: 'utf8',

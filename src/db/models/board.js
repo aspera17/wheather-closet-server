@@ -21,16 +21,16 @@ module.exports = (sequelize) => {
             type: DataTypes.INTEGER.UNSIGNED,
             allowNull: false,
         },
-        created_at: {
-            type: DataTypes.DATE,
-            defaultValue: DataTypes.NOW,
-        }
+        // created_at: {
+        //     type: DataTypes.DATE,
+        //     defaultValue: DataTypes.NOW,
+        // }
     }, {
         sequelize,
         timestamps: false,
-        // createdAt: true,
-        // updatedAt: false,
-        // deletedAt: false,
+        updatedAt: false,
+        deletedAt: false,
+        createdAt: true,
         // underscored: true,
         freezeTableName: true,
         charset: 'utf8',
