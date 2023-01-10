@@ -56,10 +56,10 @@
 
 ## 5. 실행 방법
 
-- 백엔드 (예시):
+- 백엔드 :
   ```bash
-  1. mongodb 실행
-  2. yarn start (혹은 npm start)
+  1. mySQL 실행
+  2. npm start
   ```
 
 ## 6. 버전
