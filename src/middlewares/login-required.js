@@ -24,6 +24,8 @@ const loginRequired = (req, res, next) => {
     const payload = jwt.verify(accessToken, key);
     req.userId = payload.sub;
     req.userEmail = payload.email;
+    // const secret = jwt.verify(refreshToken, key);
+    // req.resuserId = secret.subb;
     next();
   } catch (err) {
     res.send({ errorMessage: err + ' : 로그인이 필요합니다.' });
